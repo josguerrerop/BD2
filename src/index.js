@@ -1,10 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
-const path = require('path')
+const path = require('path');
+const flash = require('connect-flash');
+const session = require('express-session');
+const pgs = require('connect-pg-simple')(session);
 const app = express();
 // Settings
-app.set('port', process.env.PORT|| 3000);
+app.set('port', process.env.PORT|| 4000);
 app.set('views',path.join(__dirname,'views'));
 
 app.engine('.hbs',exphbs({
@@ -15,14 +18,29 @@ app.engine('.hbs',exphbs({
     helpers: require('./lib/handlebars')
 }));
 app.set('view engine','.hbs');
-// Midleware
+
+  
+
+app.use(session({
+    store: new pgs({
+        conString: "postgres://postgres:x@localhost:5432/prontomueble"}),
+    secret: 'x',
+    resave: false,
+    saveUninitialized: true
+  }));
+
+app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
+
 // Global variables
+
 app.use((req,res,next)=>{
+app.locals.c = req.flash('c');
 next();
 });
+
 // Routes
 app.use(require('./routes'));
 app.use(require('./routes/authentication'));

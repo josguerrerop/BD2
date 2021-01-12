@@ -4,3 +4,9 @@
 {{this}}
 {{/each}}
 </div>
+
+ <p>Company: <select name="company" id="company">
+    {{#each proveedores}}
+        <option>{{id}}</option>
+    {{/each}}
+    </select>

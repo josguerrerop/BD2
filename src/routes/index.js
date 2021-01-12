@@ -3,7 +3,9 @@ const router = express.Router();
 const db = require('../database');
 
  router.get('/', async (req,res) => {
-   res.send('hello world');
+  
+   
+   //req.flash('success','deployment successfully');
    /*
   try{  
   db.connect();
