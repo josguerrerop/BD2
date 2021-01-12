@@ -5,7 +5,14 @@ const path = require('path');
 const flash = require('connect-flash');
 const session = require('express-session');
 const pgs = require('connect-pg-simple')(session);
+const passport =require('passport');
+
+
+//inicio
 const app = express();
+require('./lib/passport');
+
+
 // Settings
 app.set('port', process.env.PORT|| 4000);
 app.set('views',path.join(__dirname,'views'));
@@ -20,7 +27,7 @@ app.engine('.hbs',exphbs({
 app.set('view engine','.hbs');
 
   
-
+//midleware
 app.use(session({
     store: new pgs({
         conString: "postgres://postgres:x@localhost:5432/prontomueble"}),
@@ -33,7 +40,8 @@ app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-
+app.use(passport.initialize());
+app.use(passport.session());
 // Global variables
 
 app.use((req,res,next)=>{
