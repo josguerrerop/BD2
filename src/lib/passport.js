@@ -1,6 +1,6 @@
 const passport =require('passport');
 const strategy = require('passport-local').Strategy;
-const pool = require('../database');
+const db = require('../database');
 
 passport.use('local.signup' , new strategy({
     usernameField: 'username',
@@ -8,7 +8,17 @@ passport.use('local.signup' , new strategy({
     passReqToCallback: true
 },async (req,username,password,done)=>{
 console.log(req.body);
+const newClient = {
+    username,
+    password,
+    fullname
+};
+try{
+await db.query('insert into cliente  (m) (${id},${name})')
 
+ }catch(error){
+    console.log(error);
+ }
 }));
 
 passport.serializeUser((user, done) => {
