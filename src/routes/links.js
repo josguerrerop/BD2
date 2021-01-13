@@ -9,11 +9,11 @@ const db = require('../database');
 
 router.get('/take', async(req, res) => {
     try {
-        var material = await db.query('select * from material');
+        var material = await db.query('select * from material;');
         const color = await db.query('select * from color;');
-        const tipo = await db.query('select * from tipo_mueble');
-        const vendedor = await db.query('select * from vendedor');
-        const proveedor = await db.query('select * from proveedor');
+        const tipo = await db.query('select * from tipo_mueble;');
+        const vendedor = await db.query('select * from vendedor;');
+        const proveedor = await db.query('select * from proveedor;');
         res.render('links/take', { material, color, tipo, vendedor, proveedor });
     } catch (error) {
         console.log(error);
