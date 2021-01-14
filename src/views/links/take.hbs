@@ -3,24 +3,25 @@
         <div class="col-md- col-sm-5">
             <div class="card">
                 <div class="card-header">
-                    <h1>Registrar Mueble</h1>
+                    <h2>Registrar Mueble</h2>
                 </div>
-                <form action="/#">
+                <form action="/links/take/add" method="POST">
                 <div class="card-body">
                     <div class="form-group">
-                        <input class="form-control"  type="text" name="nombrepro" placeholder="Nombre del precio">
+                        <input class="form-control"  type="number" name="precio" placeholder="Precio">
                     </div>
                     <div class="form-group">
-                        <input class="form-control"  type="text" name="nombrepro" placeholder="Dimensiones (alto, ancho, profundo)">
+                        <input class="form-control"  type="text" name="dimensiones" placeholder="Dimensiones (alto, ancho, profundo)">
                     </div>
                     <div class="form-group">
-                        <input class="form-control"  type="number" name="nombrepro" placeholder="Precio de instalacion">
+                        <input class="form-control"  type="number" name="instalacion" placeholder="Precio de instalacion">
                     </div>
+                    <hr>
                     <div class="form-group">
                         <p>Material: 
                         <select name="material" id="material" class="form-control">
                         {{#each material}}
-                            <option >{{material}}, {{id}}</option>
+                            <option value="{{id}}">{{material}}, {{id}}</option>
                         {{/each}}
                         </select>
                     </div>
@@ -28,7 +29,7 @@
                         <p>Color: 
                         <select name="color" id="color" class="form-control">
                         {{#each color}}
-                            <option >{{color}}, {{id}}</option>
+                            <option value="{{id}}">{{color}}, {{id}}</option>
                         {{/each}}
                         </select>
                     </div>
@@ -36,23 +37,23 @@
                         <p>Tipo: 
                         <select name="tipo" id="tipo" class="form-control">
                         {{#each tipo}}
-                            <option >{{tipo}}, {{id}}</option>
+                            <option value="{{id}}">{{tipo}}, {{id}}</option>
                         {{/each}}
                         </select>
                     </div>
                     <div class="form-group">
                         <p>Vendedor: 
-                        <select name="tipo" id="tipo" class="form-control">
+                        <select name="vendedor" id="tipo" class="form-control">
                         {{#each vendedor}}
-                            <option >{{id}}</option>
+                            <option value="{{id}}">{{nombre}}, {{id}}</option>
                         {{/each}}
                         </select>
                     </div>
                     <div class="form-group">
-                        <p>Tipo: 
-                        <select name="tipo" id="tipo" class="form-control">
+                        <p>Proveedor: 
+                        <select name="proveedor" id="tipo" class="form-control">
                         {{#each proveedor}}
-                            <option >{{nombre}}, {{id}}</option>
+                            <option value="{{id}}">{{nombre}}, {{id}}</option>
                         {{/each}}
                         </select>
                     </div>
