@@ -1,1 +1,29 @@
-<h1>HOME</h1>
+<div class="container ">
+    <div class="row">   
+        {{#each muebles }}
+        <div class="col-md-4">
+            <div class="panel panel-default pt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center" style="text-transform: capitalize;">{{tipo}} de {{material}}, {{color}}</h2>
+                    </div>
+                    <div class="card-body justify-content-center">
+                        <div class="panel-heading ">
+                            
+                            
+                        </div>
+                        <div class="panel-body">
+                            <h5>Proveedor: {{nombre_prov}}</h5>
+                            <h5>Vendedor: {{nombre_vend}}</h5>
+                            <h5>Vendidos: {{cant_comprados}}</h5>
+                            <hr>
+                            <a href="#" class="btn btn-success btn-block">Comprar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{/each}}
+    </div>
+</div>
