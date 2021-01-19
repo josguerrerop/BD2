@@ -61,7 +61,9 @@ router.post('/registrar-vend/add', async(req, res) => {
         const { nombre } = req.body;
         const rep = await db.query(`insert into vendedor (nombre, numero_ventas) values ('${nombre}', 0)`);
         req.flash('c', 'Vendedor anadido correctamente');
+        req.session.save(function() {
         res.redirect('/links/registrar-vend');
+    });
     } catch (error) {
         console.log(error);
     }
