@@ -4,9 +4,15 @@ const { func } = require('../database');
 const router = express.Router();
 const db = require('../database');
 //const pg = db.connect();
+
+router.get('/comprar/:id',async (req,res)=>{
+console.log(req.user);
+});
+
+
 router.get('/home', async(req, res) => {
     const muebles = await db.query('select mueble.id, id_proveedor, id_vendedor, precio, dimensiones, cant_comprados , precio_instalacion, id_color, id_tipo_mueble, id_material, color, material, tipo, proveedor.nombre as nombre_prov, vendedor.nombre as nombre_vend from mueble inner join color on mueble.id_color = color.id inner join material on mueble.id_material =material.id inner join tipo_mueble on mueble.id_tipo_mueble = tipo_mueble.id inner join proveedor  on mueble.id_proveedor = proveedor.id inner join vendedor on mueble.id_vendedor = vendedor.id');
-    console.log(muebles);
+    //console.log(muebles);
     res.render('links/home', { muebles });
 });
 

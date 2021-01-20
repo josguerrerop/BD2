@@ -1,3 +1,4 @@
+{{>navUsers}}
 <div class="container ">
     <div class="row">   
         {{#each muebles }}
@@ -17,7 +18,7 @@
                             <h5>Vendedor: {{nombre_vend}}</h5>
                             <h5>Vendidos: {{cant_comprados}}</h5>
                             <hr>
-                            <a href="#" class="btn btn-success btn-block">Comprar</a>
+                          <a class="btn btn-success btn-block" href="/links/comprar/{{id}}">Comprar</a>
                         </div>
                     </div>
                 </div>
