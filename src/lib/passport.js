@@ -3,24 +3,47 @@ const strategy = require('passport-local').Strategy;
 const db = require('../database');
 const helpers = require('../lib/helpers');
 
+
+passport.use('local.signin', new strategy({
+  usernameField: 'username',
+  passwordField: 'password',
+  passReqToCallback: true
+}, async (req, username, password, done) => {
+  try{
+  const rows = await db.query('SELECT * FROM sesion_cliente WHERE correo = $1', [username]);
+   console.log(rows);
+  
+  if (rows.length > 0) {
+    const user = rows[0];
+    if (rows[0].clave==password) {
+      done(null, user, req.flash('c', 'Welcome ' + user.username));;
+    } else {
+      done(null, false, req.flash('c', 'Incorrect Password'));
+    }
+  } else {
+    return done(null, false, req.flash('c', 'The Username does not exists.'));
+  }
+}catch(e){console.log(e)}
+}));
+
+
+
 passport.use('local.signup' , new strategy({
     usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true
 },async (req,username,password,done)=>{
-
-   
     const {nombre,direccion} = req.body;
-  
-     //console.log(newClient);
+ 
 try{
- const result =await db.query('insert into cliente  (nombre,direccion) values (${nombre},${direccion})',{direccion,nombre});
- await db.query('insert into sesion_cliente (correo,clave) values (${username},${password})',{username,password});
-const newClient = {direccion,nombre,username,password};
 
-const id = await db.query('select id_cliente from sesion_cliente where correo = $1',username);
-var i = id[0];
-newClient.id=i.id_cliente;
+const id_cliente = await db.query('insert into cliente  (nombre,direccion) values (${nombre},${direccion}) returning id',{nombre,direccion});
+
+const id = id_cliente[0].id; 
+await db.query('insert into sesion_cliente (id_cliente,correo,clave) values (${id},${username},${password})',{id,username,password});
+
+const newClient = {id,username,password,nombre,direccion};
+
  return done(null,newClient);
 }catch(error){
     console.log(error);
@@ -28,11 +51,9 @@ newClient.id=i.id_cliente;
 }));
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user);
   });
-
-  passport.deserializeUser(async (id, done) => {
-    const rows = await pool.query('SELECT * FROM sesion_cliente WHERE id = ?', [id]);
-    console.log(rows);
-    done(null, rows[0]);
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
   });
+  
