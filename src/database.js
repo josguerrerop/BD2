@@ -2,9 +2,9 @@ const pgp = require("pg-promise")({});
 const cn = {
     user: 'postgres',
     host: 'localhost',
-    password: '',
+    password: 'x',
     database: 'prontomueble',
-    port: '8080'
+    port: '5432'
 };
 const db = pgp(cn);
 module.exports = db;
