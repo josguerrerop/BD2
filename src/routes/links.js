@@ -6,7 +6,11 @@ const db = require('../database');
 //const pg = db.connect();
 
 router.get('/comprar/:id',async (req,res)=>{
-console.log(req.user);
+if(req.user){
+    console.log('entring')
+}else{
+    res.redirect('/signin');
+}
 });
 
 
@@ -47,7 +51,6 @@ router.get('/registrar-prov', async(req, res) => {
 
 router.post('/registrar-prov/add', async(req, res) => {
     try {
-
         const { direccion, nombre, representante, contacto } = req.body;
         const resp = await db.query(`insert into proveedor (direccion, nombre, persona_contacto) values ('${direccion}', '${nombre}', '${representante}')`);
         const resp1 = await db.query(`insert into tel_proveedor (telefono) values ('${contacto}')`);

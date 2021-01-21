@@ -7,21 +7,19 @@ res.render('auth/singup');
 });
 
 router.post('/signup', passport.authenticate('local.signup', {
-    successRedirect: '/profile',
+    successRedirect: '/links/home',
     failureRedirect: '/signup',
     failureFlash: true
   }));
   
-router.get('/profile',(req,res)=>{
-res.send('profile');
-});
+
 
 router.get('/signin', (req, res) => {
   res.render('auth/signin');
 });
 
 router.post('/signin', passport.authenticate('local.signin', {
-  successRedirect: '/profile',
+  successRedirect: '/links/home',
   failureRedirect: '/signup',
   failureFlash: true
 }));
