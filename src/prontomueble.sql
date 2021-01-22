@@ -26,7 +26,7 @@ create table cant_ventas_vendedor(
 id_vendedor int not null, 
 cant_vendidos int default 0, 
 mes varchar(10),
-primary key(id_vendedor,cant_vendidos,mes),
+primary key(id_vendedor,mes),
 foreign key (id_vendedor) references vendedor (id)
 );
 
@@ -90,8 +90,8 @@ create table cantm_client_compra(
 id_cliente int not null,
 cant_comprados int default 0,
 mes varchar(10),
-primary key (id_mueble,mes),
-foreign key (id_mueble) references mueble (id)
+primary key (id_cliente,mes),
+foreign key (id_cliente) references cliente (id)
 );
 
 create table tel_cliente(
