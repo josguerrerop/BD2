@@ -25,7 +25,7 @@ primary key (id)
 create table cant_ventas_vendedor(
 id_vendedor int not null, 
 cant_vendidos int default 0, 
-mes varchar(10),
+fecha date,
 primary key(id_vendedor,mes),
 foreign key (id_vendedor) references vendedor (id)
 );
@@ -70,7 +70,7 @@ foreign key (id_material) references material (id)
 create table cant_mueble_vend(
 id_mueble int not null,
 cant_m_ven int default 0,
-mes varchar(20),
+fecha date,
 primary key (id_mueble,mes),
 foreign key (id_mueble) references mueble (id)
 );
@@ -89,7 +89,7 @@ primary key (id)
 create table cantm_client_compra(
 id_cliente int not null,
 cant_comprados int default 0,
-mes varchar(10),
+fecha date,
 primary key (id_cliente,mes),
 foreign key (id_cliente) references cliente (id)
 );
@@ -122,24 +122,24 @@ ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFE
 CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
 
-create or replace function cliente_compras() returns trigger AS $mueble_v$
+ create or replace function cliente_compras() returns trigger AS $compras_c$
  declare id_C INT; 
  declare mont text; 
  declare id_cli INT;
  begin
  id_cli = new.id_cliente;
- SELECT EXTRACT(MONTH FROM  new.fecha) INTO mont;
+ SELECT DATE(new.fecha) INTO mont;
  SELECT id_cliente FROM cantm_client_compra WHERE mes=mont and id_cliente=id_cli into id_C;
  IF (id_C IS NULL) then
  insert into cantm_client_compra (id_cliente,cant_comprados,mes) values (new.id_cliente,1,mont);
- raise notice '1 insertado %',mont;
  else 
  update cantm_client_compra set cant_comprados=cant_comprados+1 WHERE mes=mont and id_cliente=id_cli;
- raise notice 'actualizado %',mont;
  end if;
  return new;
  end;
- $mueble_v$ LANGUAGE plpgsql;
  
-  create trigger mueble_v after insert on compra
+ 
+ $compras_c$ LANGUAGE plpgsql;
+ 
+  create trigger compras_c after insert on compra
   for each row execute procedure cliente_compras();
