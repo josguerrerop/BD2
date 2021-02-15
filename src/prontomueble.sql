@@ -120,3 +120,26 @@ ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFE
 
 
 CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+
+
+create or replace function muebles_vendidos() returns trigger AS $mueble_v$
+ declare id_M INT; 
+ declare mont text; 
+ declare id_cli INT;
+ begin
+ id_cli = new.id_cliente;
+ SELECT EXTRACT(MONTH FROM  new.fecha) INTO mont;
+ SELECT id_ FROM cant_mueble_vend WHERE mes=mont and id_cliente=id_cli into id_M;
+ IF (id_C IS NULL) then
+ insert into cant_mueble_vend (id_cliente,cant_comprados,mes) values (new.id_cliente,1,mont);
+ raise notice '1 insertado %',mont;
+ else 
+ update cant_mueble_vend set cant_comprados=cant_comprados+1 WHERE mes=mont and id_cliente=id_cli;
+ raise notice 'actualizado %',mont;
+ end if;
+ return new;
+ end;
+ $mueble_v$ LANGUAGE plpgsql;
+ 
+  create trigger mueble_v after insert on compra
+  for each row execute procedure cliente_compras();
