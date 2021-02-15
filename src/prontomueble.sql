@@ -26,7 +26,7 @@ create table cant_ventas_vendedor(
 id_vendedor int not null, 
 cant_vendidos int default 0, 
 fecha date,
-primary key(id_vendedor,mes),
+primary key(id_vendedor,fecha),
 foreign key (id_vendedor) references vendedor (id)
 );
 
@@ -71,7 +71,7 @@ create table cant_mueble_vend(
 id_mueble int not null,
 cant_m_ven int default 0,
 fecha date,
-primary key (id_mueble,mes),
+primary key (id_mueble,fecha),
 foreign key (id_mueble) references mueble (id)
 );
 
@@ -90,7 +90,7 @@ create table cantm_client_compra(
 id_cliente int not null,
 cant_comprados int default 0,
 fecha date,
-primary key (id_cliente,mes),
+primary key (id_cliente,fecha),
 foreign key (id_cliente) references cliente (id)
 );
 
@@ -129,11 +129,11 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
  begin
  id_cli = new.id_cliente;
  SELECT DATE(new.fecha) INTO mont;
- SELECT id_cliente FROM cantm_client_compra WHERE mes=mont and id_cliente=id_cli into id_C;
+ SELECT id_cliente FROM cantm_client_compra WHERE fecha=mont and id_cliente=id_cli into id_C;
  IF (id_C IS NULL) then
- insert into cantm_client_compra (id_cliente,cant_comprados,mes) values (new.id_cliente,1,mont);
+ insert into cantm_client_compra (id_cliente,cant_comprados,fecha) values (new.id_cliente,1,mont);
  else 
- update cantm_client_compra set cant_comprados=cant_comprados+1 WHERE mes=mont and id_cliente=id_cli;
+ update cantm_client_compra set cant_comprados=cant_comprados+1 WHERE fecha=mont and id_cliente=id_cli;
  end if;
  return new;
  end;
