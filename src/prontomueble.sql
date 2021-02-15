@@ -142,4 +142,4 @@ create or replace function muebles_vendidos() returns trigger AS $mueble_v$
  $mueble_v$ LANGUAGE plpgsql;
  
   create trigger mueble_v after insert on compra
-  for each row execute procedure cliente_compras();
+  for each row execute procedure muebles_vendidos();
