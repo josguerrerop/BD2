@@ -122,7 +122,7 @@ ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFE
 CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
 
-create or replace function muebles_vendidos() returns trigger AS $mueble_v$
+create or replace function cliente_compras() returns trigger AS $mueble_v$
  declare id_M INT; 
  declare mont text; 
  declare id_cli INT;
@@ -142,4 +142,4 @@ create or replace function muebles_vendidos() returns trigger AS $mueble_v$
  $mueble_v$ LANGUAGE plpgsql;
  
   create trigger mueble_v after insert on compra
-  for each row execute procedure muebles_vendidos();
+  for each row execute procedure cliente_compras();
