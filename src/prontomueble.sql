@@ -124,7 +124,7 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
  create or replace function cliente_compras() returns trigger AS $compras_c$
  declare id_C INT; 
- declare mont text; 
+ declare mont date; 
  declare id_cli INT;
  begin
  id_cli = new.id_cliente;
