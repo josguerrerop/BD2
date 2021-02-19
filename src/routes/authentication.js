@@ -27,7 +27,7 @@ router.post('/signin', passport.authenticate('local.signin', {
 
 router.get('/logout', (req, res) => {
     req.logOut();
-    res.redirect('/');
+    res.redirect('/signin');
 });
 
 
