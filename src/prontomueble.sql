@@ -86,6 +86,25 @@ numero_compras int,
 primary key (id)
 );
 
+create table cliente(
+id serial not null,
+nombre varchar(20),
+direccion varchar(20),
+correo varchar(20),
+clave varchar(20),
+numero_compras int,
+primary key (id)
+);
+
+create table sesion_cliente (
+id_cliente INT not null,
+correo varchar(30),
+clave varchar(30)
+primary key (id_cliente),
+foreign key id_cliente references cliente (id)
+);
+
+
 create table cantm_client_compra(
 id_cliente int not null,
 cant_comprados int default 0,
