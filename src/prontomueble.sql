@@ -99,9 +99,9 @@ primary key (id)
 create table sesion_cliente (
 id_cliente INT not null,
 correo varchar(30),
-clave varchar(30)
+clave varchar(30),
 primary key (id_cliente),
-foreign key id_cliente references cliente (id)
+foreign key (id_cliente) references cliente (id)
 );
 
 
