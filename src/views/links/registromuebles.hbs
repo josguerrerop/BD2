@@ -1,3 +1,4 @@
+{{> navAdmin}}
 <div class="container pt-4">
     <div class="row justify-content-center">
         <div class="col-md- col-sm-5">
@@ -10,9 +11,14 @@
                     <div class="form-group">
                         <input class="form-control"  type="number" name="precio" placeholder="Precio">
                     </div>
+                    <hr>
                     <div class="form-group">
-                        <input class="form-control"  type="text" name="dimensiones" placeholder="Dimensiones (alto, ancho, profundo)">
+                        <label for="dimesiones">Dimensiones</label>
+                        <input class="form-control"  type="number" name="alto" step="0.01" placeholder="Alto en metros">
+                        <input class="form-control"  type="number" name="ancho" step="0.01" placeholder="Ancho en metros">
+                        <input class="form-control"  type="number" name="profundo" step="0.01" placeholder="Profundo en metros">
                     </div>
+                    <hr>
                     <div class="form-group">
                         <input class="form-control"  type="number" name="instalacion" placeholder="Precio de instalacion">
                     </div>

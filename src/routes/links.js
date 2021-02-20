@@ -37,8 +37,8 @@ router.get('/registromuebles', async(req, res) => {
 });
 router.post('/registromuebles/add', async(req, res) => {
     try {
-        const { precio, dimensiones, instalacion, material, color, tipo, vendedor, proveedor } = req.body;
-        const resp = await db.query(`insert into mueble (precio, dimensiones, precio_instalacion, id_color, id_tipo_mueble, id_material, id_vendedor, id_proveedor) values (${precio}, '${dimensiones}', ${instalacion}, ${color} , ${tipo}, ${material}, ${vendedor}, ${proveedor})`);
+        const { precio, alto, ancho, profundo, instalacion, material, color, tipo, vendedor, proveedor } = req.body;
+        const resp = await db.query(`insert into mueble (precio, dimensiones, precio_instalacion, id_color, id_tipo_mueble, id_material, id_vendedor, id_proveedor) values (${precio}, '${alto},${ancho},${profundo}', ${instalacion}, ${color} , ${tipo}, ${material}, ${vendedor}, ${proveedor})`);
         req.flash('c', 'Mueble anadido correctamente');
         res.redirect('/links/registromuebles');
     } catch (error) {
