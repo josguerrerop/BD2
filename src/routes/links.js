@@ -17,7 +17,7 @@ router.get('/comprar/:id', async(req, res) => {
 
 
 router.get('/home', async(req, res) => {
-    const muebles = await db.query('select mueble.id, id_proveedor, id_vendedor, precio, dimensiones, precio_instalacion, id_color, id_tipo_mueble, id_material, color, material, tipo, proveedor.nombre as nombre_prov, vendedor.nombre as nombre_vend from mueble inner join color on mueble.id_color = color.id inner join material on mueble.id_material =material.id inner join tipo_mueble on mueble.id_tipo_mueble = tipo_mueble.id inner join proveedor  on mueble.id_proveedor = proveedor.id inner join vendedor on mueble.id_vendedor = vendedor.id');
+    const muebles = await db.query('select * from vista_mueble;');
 
     res.render('links/home', { muebles });
 });
@@ -98,6 +98,14 @@ router.get('/xd', async(req, res) => {
     });
 
 });
+
+router.get('/reporte', async(req, res) => {
+    const repo_mueble = await db.query("select * from cant_mueble_vend;")
+    const repo_vendedor = await db.query("select * from cant_ventas_vendedor;")
+    const repo_cliente = await db.query("select * from cantm_client_compra;")
+    res.render('links/reporte', { repo_mueble, repo_vendedor, repo_cliente })
+
+})
 
 
 router.post('/add', async(req, res) => {

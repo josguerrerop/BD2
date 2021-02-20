@@ -30,7 +30,7 @@ app.set('view engine', '.hbs');
 //midleware
 app.use(session({
     store: new pgs({
-        conString: "postgres://postgres:x@localhost:5432/prontomueble"
+        conString: "postgres://postgres:x@localhost:8080/prontomueble"
     }),
     secret: 'x',
     resave: false,
@@ -47,7 +47,7 @@ app.use(passport.session());
 
 app.use((req, res, next) => {
     app.locals.c = req.flash('c');
-    app.locals.user= req.user;
+    app.locals.user = req.user;
     next();
 });
 

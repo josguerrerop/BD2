@@ -1,0 +1,110 @@
+{{> navUser}}
+
+<div class="container justify-content-center pt-4">
+    <div class="row justify-content-center">
+        <div class="card col-md-4">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h2>Reporte Mensual</h2>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <select name="" id="opcion" class="form-control" onchange="boton()">
+                    <option selected disabled>Selecciona una opcion</option>
+                    <option value="mueble">Cantidad de ventas por mueble</option>
+                    <option value="vendedor">Cantidad de ventas por vendedor</option>
+                    <option value="cliente">Cantidad de compras por cliente</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="pt-4" id="tabla-mueble" style="display: none;">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id Mueble</th>
+                    <th>Cantidad Comprados</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each repo_mueble}}
+                <tr>
+                    <td>{{id_mueble}}</td>
+                    <td>{{cant_m_ven}}</td>
+                    <td>{{fecha}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+    </div>
+    <div class="pt-4" id="tabla-vendedor" style="display: none;">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id Vendedor</th>
+                    <th>Cantidad Vendidos</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each repo_vendedor}}
+                <tr>
+                    <td>{{id_vendedor}}</td>
+                    <td>{{cant_vendidos}}</td>
+                    <td>{{fecha}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+    </div>
+    <div class="pt-4" id="tabla-cliente" style="display: none;">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id Cliente</th>
+                    <th>Cantidad Comprados</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each repo_cliente}}
+                <tr>
+                    <td>{{id_cliente}}</td>
+                    <td>{{cant_comprados}}</td>
+                    <td>{{fecha}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    function boton() {
+        const op = document.getElementById("opcion").value
+        if (op == 'mueble') {
+            document.getElementById("tabla-mueble").style.display = "block"
+            document.getElementById("tabla-vendedor").style.display = "none"
+            document.getElementById("tabla-cliente").style.display = "none"
+
+        }else if(op == 'cliente'){
+            document.getElementById("tabla-mueble").style.display = "none"
+            document.getElementById("tabla-vendedor").style.display = "none"
+            document.getElementById("tabla-cliente").style.display = "block"
+        }else if(op == 'vendedor'){
+            document.getElementById("tabla-mueble").style.display = "none"
+            document.getElementById("tabla-vendedor").style.display = "block"
+            document.getElementById("tabla-cliente").style.display = "none"
+        }
+    }
+
+
+
+</script>

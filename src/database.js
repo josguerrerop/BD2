@@ -4,7 +4,7 @@ const cn = {
     host: 'localhost',
     password: 'x',
     database: 'prontomueble',
-    port: '5432'
+    port: '8080'
 };
 const db = pgp(cn);
 module.exports = db;
