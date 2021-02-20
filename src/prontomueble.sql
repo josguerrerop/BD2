@@ -157,8 +157,6 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
  end if;
  return new;
  end;
- 
- 
  $compras_c$ LANGUAGE plpgsql;
  
   create trigger compras_c after insert on compra
