@@ -36,9 +36,8 @@ router.get('/registromuebles', async(req, res) => {
     }
 });
 
-router.post('/take/add', async(req, res) => {
+router.post('/registromuebles/add', async(req, res) => {
     try {
-        console.log('entrotake');
         const { precio, dimensiones, instalacion, material, color, tipo, vendedor, proveedor } = req.body;
         const resp = await db.query(`insert into mueble (precio, dimensiones, cant_comprados, precio_instalacion, id_color, id_tipo_mueble, id_material, id_vendedor, id_proveedor) values (${precio}, '${dimensiones}', 0, ${instalacion}, ${color} , ${tipo}, ${material}, ${vendedor}, ${proveedor})`);
         req.flash('c', 'Mueble anadido correctamente');
