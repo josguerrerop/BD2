@@ -5,6 +5,8 @@ const router = express.Router();
 const db = require('../database');
 //const pg = db.connect();
 
+//CUANDO EL CLIENTE COMPRA CAPTURAMOS SU
+
 router.get('/comprar/:id', async(req, res) => {
     if (req.user) {
         console.log('entring')
