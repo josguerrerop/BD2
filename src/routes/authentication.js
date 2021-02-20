@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+
 router.get('/signup', async(req, res) => {
     res.render('auth/singup');
 });

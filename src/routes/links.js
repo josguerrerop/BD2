@@ -1,10 +1,8 @@
 const express = require('express');
 const { as } = require('pg-promise');
-const { func } = require('../database');
 const router = express.Router();
 const db = require('../database');
 
-//CUANDO EL CLIENTE COMPRA CAPTURAMOS SU
 
 router.get('/comprar/:id', async(req, res) => {
     if (req.user) {
@@ -17,22 +15,27 @@ router.get('/comprar/:id', async(req, res) => {
 //PAGINA DE MUEBLES DE INICIO
 router.get('/home', async(req, res) => {
     const muebles = await db.query('select * from vista_mueble;');
-
     res.render('links/home', { muebles });
 });
 
 
 //REGISTRO DE MUEBLES
 router.get('/registromuebles', async(req, res) => {
-    try {
-        var material = await db.query('select * from material;');
-        const color = await db.query('select * from color;');
-        const tipo = await db.query('select * from tipo_mueble;');
-        const vendedor = await db.query('select * from vendedor;');
-        const proveedor = await db.query('select * from proveedor;');
-        res.render('links/registromuebles', { material, color, tipo, vendedor, proveedor });
-    } catch (error) {
-        console.log(error);
+    const user = req.user;
+    console.log(user);
+    if (user[0] == 'admin@hotmail.com' && user[1] == 'axxkd343') {
+        try {
+            var material = await db.query('select * from material;');
+            const color = await db.query('select * from color;');
+            const tipo = await db.query('select * from tipo_mueble;');
+            const vendedor = await db.query('select * from vendedor;');
+            const proveedor = await db.query('select * from proveedor;');
+            res.render('links/registromuebles', { material, color, tipo, vendedor, proveedor });
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        res.render('/home');
     }
 });
 
@@ -104,8 +107,7 @@ router.get('/reporte', async(req, res) => {
     const repo_vendedor = await db.query("select * from cant_ventas_vendedor;")
     const repo_cliente = await db.query("select * from cantm_client_compra;")
     res.render('links/reporte', { repo_mueble, repo_vendedor, repo_cliente })
-
-})
+});
 
 
 router.post('/add', async(req, res) => {
