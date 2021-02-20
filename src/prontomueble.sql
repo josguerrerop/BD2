@@ -38,7 +38,7 @@ primary key (id)
 );
 
 create table material(
-id int not null,
+id serial  not null,
 material varchar(20),
 primary key (id)
 );

@@ -3,7 +3,6 @@ const { as } = require('pg-promise');
 const { func } = require('../database');
 const router = express.Router();
 const db = require('../database');
-//const pg = db.connect();
 
 //CUANDO EL CLIENTE COMPRA CAPTURAMOS SU
 
@@ -15,21 +14,23 @@ router.get('/comprar/:id', async(req, res) => {
     }
 });
 
-
+//PAGINA DE MUEBLES DE INICIO
 router.get('/home', async(req, res) => {
     const muebles = await db.query('select * from vista_mueble;');
 
     res.render('links/home', { muebles });
 });
 
-router.get('/take', async(req, res) => {
+
+//REGISTRO DE MUEBLES
+router.get('/registromuebles', async(req, res) => {
     try {
         var material = await db.query('select * from material;');
         const color = await db.query('select * from color;');
         const tipo = await db.query('select * from tipo_mueble;');
         const vendedor = await db.query('select * from vendedor;');
         const proveedor = await db.query('select * from proveedor;');
-        res.render('links/take', { material, color, tipo, vendedor, proveedor });
+        res.render('links/registromuebles', { material, color, tipo, vendedor, proveedor });
     } catch (error) {
         console.log(error);
     }
@@ -84,7 +85,7 @@ router.post('/registrar-vend/add', async(req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
+});
 
 
 router.get('/add', (req, res) => {
