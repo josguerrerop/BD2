@@ -161,3 +161,17 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
  
   create trigger compras_c after insert on compra
   for each row execute procedure cliente_compras();
+create view vista_mueble as 
+select mueble.id, id_proveedor, id_vendedor, precio, dimensiones, precio_instalacion, 
+id_color, id_tipo_mueble, id_material, color, material, tipo, proveedor.nombre as nombre_prov, 
+vendedor.nombre as nombre_vend from mueble inner join color on mueble.id_color = color.id 
+inner join material on mueble.id_material =material.id inner join 
+tipo_mueble on mueble.id_tipo_mueble = tipo_mueble.id inner join 
+proveedor  on mueble.id_proveedor = proveedor.id inner join vendedor on mueble.id_vendedor = vendedor.id;
+
+CREATE OR REPLACE RULE limit_precio
+AS ON insert 
+TO mueble WHERE NEW.precio<100000
+DO(
+update mueble set precio =200000 WHERE precio<100000;
+);
