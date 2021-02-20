@@ -22,15 +22,15 @@ router.get('/home', async(req, res) => {
 });
 
 
-
-router.get('/take', async(req, res) => {
+//REGISTRO DE MUEBLES
+router.get('/registromuebles', async(req, res) => {
     try {
         var material = await db.query('select * from material;');
         const color = await db.query('select * from color;');
         const tipo = await db.query('select * from tipo_mueble;');
         const vendedor = await db.query('select * from vendedor;');
         const proveedor = await db.query('select * from proveedor;');
-        res.render('links/take', { material, color, tipo, vendedor, proveedor });
+        res.render('links/registromuebles', { material, color, tipo, vendedor, proveedor });
     } catch (error) {
         console.log(error);
     }
@@ -85,7 +85,7 @@ router.post('/registrar-vend/add', async(req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
+});
 
 
 router.get('/add', (req, res) => {
