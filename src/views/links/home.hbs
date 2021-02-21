@@ -6,14 +6,14 @@
   });
 </script>
 
- <script>
-    function sure(id) {
+<script>
+  function sure(id) {
 
 
-    
-     $('#compra').modal('show');
+    document.getElementById("prodId").value = id
+    $('#compra').modal('show');
 
-    }
+  }
 </script>
 
 <div class="modal fade" id="myModal" role="dialog">
@@ -48,17 +48,16 @@
 
         <h4 class="modal-title"><i class="fas fa-shopping-cart"></i>&nbsp; Confirmar datos de compra</h4>
       </div>
-      
-       <div class="modal-body">
-  <form action="/prontomueblesa/comprar" method="GET">
-     
-<input id="prodId" name="prodId" type="hidden" value="">
+
+      <div class="modal-body">
+        <form action="/links/comprar" method="POST">
+          <input id="prodId" name="prodId" type="text" value="">
 
 
- <button type="submit" class="btn btn-success btn-block" > confirmar compra</button>
-    </form>
+          <button type="submit" class="btn btn-success btn-block"> confirmar compra</button>
+        </form>
+      </div>
     </div>
-</div>
   </div>
 </div>
 
@@ -87,11 +86,12 @@
             </div>
           </div>
           <div class="card-footer">
-          <a onclick="return sure({{id}});" class="btn btn-success btn-block" ><i class="fas fa-shopping-cart"></i>&nbsp;
-            Comprar</a>
+            <a onclick="return sure({{id}});" class="btn btn-success btn-block"><i
+                class="fas fa-shopping-cart"></i>&nbsp;
+              Comprar</a>
+          </div>
         </div>
-        </div>
-        
+
       </div>
     </div>
 

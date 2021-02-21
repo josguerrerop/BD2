@@ -12,10 +12,10 @@ router.get('/comprar/:id', async(req, res) => {
     }
 });
 
-router.get('/comprar', async(req, res) => {
+router.post('/comprar', async(req, res) => {
 
-    console.log(req.body)
-
+    const { prodId } = req.body;
+    console.log(prodId);
 });
 
 
