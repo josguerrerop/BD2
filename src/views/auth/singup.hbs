@@ -9,17 +9,21 @@
         <div class="card-body">
           <form action="/signup" method="POST">
             <div class="form-group">
-              <input type="text" name="nombre" placeholder="Nombre" class="form-control" autofocus>
+              <input type="text" name="nombre" placeholder="Nombre" class="form-control" autofocus required>
             </div>
             <div class="form-group">
-              <input type="text" name="direccion" placeholder="direccion" class="form-control">
+              <input type="text" name="direccion" placeholder="direccion" class="form-control" required>
             </div>
             <div class="form-group">
-              <input type="email" name="username" placeholder="correo" class="form-control">
+              <input type="email" name="username" placeholder="correo" class="form-control" required>
             </div>
             <div class="form-group">
-              <input type="password" name="password" placeholder="Password" class="form-control">
+              <input type="password" name="password" placeholder="Password" class="form-control" required>
             </div>
+             <div class="form-group">
+              <input type="text" name="numero_tel" placeholder="telefono" class="form-control" required>
+            </div>
+
             <div class="form-group">
               <button class="btn btn-success btn-block">
                 SingIn

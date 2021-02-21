@@ -9,6 +9,7 @@
 
 <script>
   function sure(id,precioI,precio) {
+    document.getElementById("idmueble").value = id;
     document.getElementById("preciototal").value = precio;
     document.getElementById("usertotal").value = precio;
     $('#compra').modal('show');
@@ -126,7 +127,6 @@ if(!cb.checked){
         <h4 class="modal-title"><i class="fas fa-shopping-cart"></i>&nbsp; Confirmar datos de compra</h4>
       </div>
        <h7 id="text" style="display:none;background-color:rgb(231, 231, 231);color:rgb(39, 36, 36);text-align: center">Nota: se incluiran gastos de envio</h7>
-      <h7 id="err" style="display:none;background-color:rgb(175, 126, 126);color:rgb(39, 36, 36);text-align: center">Nota: seleccione una opcion</h7>
      <hr>
       <div class="modal-body">
         <form action="/links/comprar" onsubmit="return validateForm()" method="POST">
@@ -134,7 +134,6 @@ if(!cb.checked){
   <input class="form-check-input" type="checkbox" value=""  id="instalacion" onclick="exe();">
   <label class="form-check-label" for="instalacion"> Incluir  instalacion&nbsp; <i class="fas fa-toolbox"></i><hr></label>
 </div>
-
 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="tienda" onclick="tiend();">
   <label class="form-check-label" for="tienda">
@@ -151,6 +150,8 @@ if(!cb.checked){
   </label>
 </div>
 
+<input type="hidden" name="id_mueble" id="idmueble" value="">
+
 <div>
    <input type="hidden" id="preciototal" value=""> </span>
  Total &nbsp; :&nbsp; <i class="fas fa-dollar-sign"></i> &nbsp;<input type="number" name="valorCompra" id="usertotal" value="" style="border: 0;" > </span>
@@ -162,9 +163,6 @@ if(!cb.checked){
     </div>
   </div>
 </div>
-
-
-
 
 <div class="container ">
   <div class="row">

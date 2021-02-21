@@ -38,7 +38,7 @@ passport.use('local.signup', new strategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async(req, username, password, done) => {
-    const { nombre, direccion } = req.body;
+    const { nombre, direccion, numero_tel } = req.body;
 
     try {
 
@@ -46,9 +46,9 @@ passport.use('local.signup', new strategy({
 
         const id = id_cliente[0].id;
         await db.query('insert into sesion_cliente (id_cliente,correo,clave) values (${id},${username},${password})', { id, username, password });
+        await db.query('insert into tel_cliente (id_cliente,telefono) values (${id},${numero_tel})', { id, numero_tel });
 
         const newClient = { id, username, password, nombre, direccion };
-
         return done(null, newClient);
     } catch (error) {
         console.log(error);

@@ -80,13 +80,8 @@ create table cliente(
 id serial not null,
 nombre varchar(20),
 direccion varchar(20),
-correo varchar(20),
-clave varchar(20),
-numero_compras int,
 primary key (id)
 );
-
-
 
 create table sesion_cliente (
 id_cliente INT not null,
@@ -116,6 +111,7 @@ create table compra(
 id_mueble int not null,
 id_cliente int not null,
 fecha timestamp not null,
+valor int int not null,
 primary key (id_mueble,id_cliente,fecha),
 foreign key (id_mueble) references mueble (id),
 foreign key (id_cliente) references cliente (id)
@@ -153,6 +149,7 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
  
   create trigger compras_c after insert on compra
   for each row execute procedure cliente_compras();
+  
 create view vista_mueble as 
 select mueble.id, id_proveedor, id_vendedor, precio, dimensiones, precio_instalacion, 
 id_color, id_tipo_mueble, id_material, color, material, tipo, proveedor.nombre as nombre_prov, 

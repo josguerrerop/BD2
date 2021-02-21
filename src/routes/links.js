@@ -3,21 +3,28 @@ const express = require('express');
 const router = express.Router();
 const db = require('../database');
 
-/*
-router.get('/comprar/:id', async(req, res) => {
-    if (req.user) {
-        console.log(req.params.id)
-    } else {
-        res.redirect('/signin');
-    }
-});
-*/
 
 
 router.post('/comprar', async(req, res) => {
-    const { valorCompra } = req.body;
-    console.log(valorCompra);
+    if (req.user) {
+        const { valorCompra, id_mueble } = req.body;
+        const id = req.user.id;
+        const valor = parseInt(valorCompra);
+        const idM = parseInt(id_mueble);
+        var fechaEnMiliseg = Date.now();
+        console.log('agresive');
+        try {
+            await db.query(`insert into compra (id_mueble,id_cliente,fecha,valor)
+             values ('${idM}','${id}',to_timestamp(${Date.now()} / 1000.0),'${valor}')`);
+            res.redirect('/links/home');
+            req.flash('c', 'Mueble comprado');
+        } catch (error) {
+            console.log(error);
+        }
 
+    } else {
+        res.redirect('/signin');
+    }
 
 });
 
@@ -47,7 +54,7 @@ router.get('/registromuebles', async(req, res) => {
             console.log(error);
         }
     } else {
-        res.render('/home');
+        res.redirect('/links/home');
     }
 });
 router.post('/registromuebles/add', async(req, res) => {
