@@ -153,7 +153,6 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
  
   create trigger compras_c after insert on compra
   for each row execute procedure cliente_compras();
-  
 create view vista_mueble as 
 select mueble.id, id_proveedor, id_vendedor, precio, dimensiones, precio_instalacion, 
 id_color, id_tipo_mueble, id_material, color, material, tipo, proveedor.nombre as nombre_prov, 

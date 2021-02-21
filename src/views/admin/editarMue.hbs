@@ -1,0 +1,175 @@
+{{> navAdmin}}
+
+<div class="container pt-4">
+    <div class="row justify-content-center">
+        <div class="col-md- col-sm-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Editar Mueble</h2>
+                </div>
+                <form action="/admin/editar" method="POST">
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <input hidden class="form-control" value="{{id}}" type="number" name="id">
+                            {{/each}}
+                        </div>
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <input class="form-control" value="{{precio}}" type="number" name="precio"
+                                placeholder="Precio">
+                            {{/each}}
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <label for="dimesiones">Dimensiones</label>
+                            <input type="text" value="{{dimensiones}}" hidden id="dimen">
+                            {{/each}}
+                            <input class="form-control" id="alto" type="number" name="alto" step="0.01"
+                                placeholder="Alto en metros">
+                            <input class="form-control" id="ancho" type="number" name="ancho" step="0.01"
+                                placeholder="Ancho en metros">
+                            <input class="form-control" id="profundo" type="number" name="profundo" step="0.01"
+                                placeholder="Profundo en metros">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <input class="form-control" type="number" value="{{precio_instalacion}}" name="instalacion"
+                                placeholder="Precio de instalacion">
+                            {{/each}}
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <input type="text" value="{{id_material}}" hidden id="id_mat">
+                            {{/each}}
+                            <p>Material:
+                                <select name="material" id="material" class="form-control">
+                                    {{#each material}}
+                                    <option value="{{id}}">{{material}}, {{id}}</option>
+                                    {{/each}}
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <input type="text" value="{{id_color}}" hidden id="id_color">
+                            {{/each}}
+                            <p>Color:
+                                <select name="color" id="color" class="form-control">
+                                    {{#each color}}
+                                    <option value="{{id}}">{{color}}, {{id}}</option>
+                                    {{/each}}
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <input type="text" value="{{id_tipo_mueble}}" hidden id="id_tipo">
+                            {{/each}}
+                            <p>Tipo:
+                                <select name="tipo" id="tipo" class="form-control">
+                                    {{#each tipo}}
+                                    <option value="{{id}}">{{tipo}}, {{id}}</option>
+                                    {{/each}}
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <input type="text" value="{{id_vendedor}}" hidden id="id_vend">
+                            {{/each}}
+                            <p>Vendedor:
+                                <select name="vendedor" id="vendedor" class="form-control">
+                                    {{#each vendedor}}
+                                    <option value="{{id}}">{{nombre}}, {{id}}</option>
+                                    {{/each}}
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            {{#each mueble}}
+                            <input type="text" value="{{id_proveedor}}" hidden id="id_prov">
+                            {{/each}}
+                            <p>Proveedor:
+                                <select name="proveedor" id="proveedor" class="form-control">
+                                    {{#each proveedor}}
+                                    <option value="{{id}}">{{nombre}}, {{id}}</option>
+                                    {{/each}}
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block" type="submit">Editar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const dime = String
+    dimen = document.getElementById('dimen').value + ""
+    const res = dimen.split(",")
+    document.getElementById('alto').value = res[0]
+    document.getElementById('ancho').value = res[1]
+    document.getElementById('profundo').value = res[2]
+    mate()
+    color()
+    tipo()
+    vend()
+    prov()
+    function mate() {
+        const materialdb = document.getElementById('id_mat').value
+        const material = document.getElementById('material')
+        for (var i = 0; i < material.length; i++) {
+            const opt = material[i];
+            if (opt.value == materialdb) {
+                opt.selected = 'selected'
+            }
+        }
+    }
+    function color() {
+        const colordb = document.getElementById('id_color').value
+        const color = document.getElementById('color')
+        for (var i = 0; i < color.length; i++) {
+            const opt = color[i];
+            if (opt.value == colordb) {
+                
+                opt.selected = 'selected'
+            }
+        }
+    }
+    function tipo(){
+        const matedb = document.getElementById('id_tipo').value
+        const mate = document.getElementById('tipo')
+        for (var i = 0; i < mate.length; i++) {
+            const opt = mate[i];
+            if (opt.value == matedb) {
+                
+                opt.selected = 'selected'
+            }
+        }
+    }
+    
+    function vend(){
+        const venddb = document.getElementById('id_vend').value
+        const vend = document.getElementById('vendedor')
+        for (var i = 0; i < vend.length; i++) {
+            const opt = vend[i];
+            if (opt.value == venddb) {
+                
+                opt.selected = 'selected'
+            }
+        }
+    }
+    function prov(){
+        const provdb = document.getElementById('id_prov').value
+        const prov = document.getElementById('proveedor')
+        for (var i = 0; i < prov.length; i++) {
+            const opt = prov[i];
+            if (opt.value == provdb) {
+                
+                opt.selected = 'selected'
+            }
+        }
+    }
+</script>
