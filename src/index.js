@@ -30,7 +30,7 @@ app.set('view engine', '.hbs');
 //midleware
 app.use(session({
     store: new pgs({
-        conString: "postgres://postgres:x@localhost:5432/prontomueble"
+        conString: "postgres://postgres:x@localhost:8080/prontomueble"
     }),
     secret: 'x',
     resave: false,
@@ -55,6 +55,7 @@ app.use((req, res, next) => {
 app.use(require('./routes'));
 app.use(require('./routes/authentication'));
 app.use('/links', require('./routes/links'));
+app.use('/admin', require('./routes/linksAdmin'));
 // Public
 app.use(express.static(path.join(__dirname, 'public')));
 

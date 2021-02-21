@@ -49,17 +49,6 @@ router.post('/registromuebles/add', async(req, res) => {
     }
 });
 
-router.post('/registromuebles/add', async(req, res) => {
-    try {
-        const { precio, dimensiones, instalacion, material, color, tipo, vendedor, proveedor } = req.body;
-        const resp = await db.query(`insert into mueble (precio, dimensiones, precio_instalacion, id_color, id_tipo_mueble, id_material, id_vendedor, id_proveedor) values (${precio}, '${dimensiones}', 0, ${instalacion}, ${color} , ${tipo}, ${material}, ${vendedor}, ${proveedor})`);
-        req.flash('c', 'Mueble anadido correctamente');
-        res.redirect('/links/take');
-    } catch (error) {
-        console.log(error);
-    }
-});
-
 router.get('/registrar-prov', async(req, res) => {
     res.render('links/prov');
 })
@@ -89,7 +78,7 @@ router.get('/registrar-vend', async(req, res) => {
 router.post('/registrar-vend/add', async(req, res) => {
     try {
         const { nombre } = req.body;
-        const rep = await db.query(`insert into vendedor (nombre, numero_ventas) values ('${nombre}', 0)`);
+        const rep = await db.query(`insert into vendedor (nombre) values ('${nombre}')`);
         req.flash('c', 'Vendedor anadido correctamente');
         req.session.save(function() {
             res.redirect('/links/registrar-vend');
