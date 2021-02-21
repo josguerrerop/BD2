@@ -5,6 +5,16 @@
     $('#myModal').modal('show');
   });
 </script>
+
+ <script>
+    function sure(id) {
+       $(".open-AddBookDialog").click(function(){
+     $('#bookId').val($(this).data('id'));
+    $("#addBookDialog").modal("show");
+  });
+    }
+</script>
+
 <div class="modal fade" id="myModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -29,6 +39,31 @@
 
   </div>
 </div>
+
+<div class="modal fade" id="compra" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: rgb(67, 179, 160);">
+
+        <h4 class="modal-title"><i class="fas fa-shopping-cart"></i>&nbsp; Confirmar datos de compra</h4>
+      </div>
+      
+       <div class="modal-body">
+  <form action="/prontomueblesa/comprar" method="GET">
+     
+<input id="prodId" name="prodId" type="hidden" value="">
+
+
+ <button type="submit" class="btn btn-success btn-block" > confirmar compra</button>
+    </form>
+    </div>
+</div>
+  </div>
+</div>
+
+
+
+
 <div class="container ">
   <div class="row">
     {{#each muebles }}
@@ -51,7 +86,7 @@
             </div>
           </div>
           <div class="card-footer">
-          <a class="btn btn-success btn-block" href="/links/comprar/{{id}}"><i class="fas fa-shopping-cart"></i>&nbsp;
+          <a onclick="return sure({{id}});" class="btn btn-success btn-block" ><i class="fas fa-shopping-cart"></i>&nbsp;
             Comprar</a>
         </div>
         </div>

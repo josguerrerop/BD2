@@ -86,15 +86,7 @@ numero_compras int,
 primary key (id)
 );
 
-create table cliente(
-id serial not null,
-nombre varchar(20),
-direccion varchar(20),
-correo varchar(20),
-clave varchar(20),
-numero_compras int,
-primary key (id)
-);
+
 
 create table sesion_cliente (
 id_cliente INT not null,

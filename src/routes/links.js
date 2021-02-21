@@ -6,11 +6,20 @@ const db = require('../database');
 
 router.get('/comprar/:id', async(req, res) => {
     if (req.user) {
-        console.log('entring')
+        console.log(req.params.id)
     } else {
         res.redirect('/signin');
     }
 });
+
+router.get('/comprar', async(req, res) => {
+
+    console.log(req.body)
+
+});
+
+
+
 
 //PAGINA DE MUEBLES DE INICIO
 router.get('/home', async(req, res) => {
@@ -43,22 +52,13 @@ router.post('/registromuebles/add', async(req, res) => {
         const { precio, alto, ancho, profundo, instalacion, material, color, tipo, vendedor, proveedor } = req.body;
         const resp = await db.query(`insert into mueble (precio, dimensiones, precio_instalacion, id_color, id_tipo_mueble, id_material, id_vendedor, id_proveedor) values (${precio}, '${alto},${ancho},${profundo}', ${instalacion}, ${color} , ${tipo}, ${material}, ${vendedor}, ${proveedor})`);
         req.flash('c', 'Mueble anadido correctamente');
-        res.redirect('/links/registromuebles');
+        res.redirect('/prontomueblesa/registromuebles');
     } catch (error) {
         console.log(error);
     }
 });
 
-router.post('/registromuebles/add', async(req, res) => {
-    try {
-        const { precio, dimensiones, instalacion, material, color, tipo, vendedor, proveedor } = req.body;
-        const resp = await db.query(`insert into mueble (precio, dimensiones, precio_instalacion, id_color, id_tipo_mueble, id_material, id_vendedor, id_proveedor) values (${precio}, '${dimensiones}', 0, ${instalacion}, ${color} , ${tipo}, ${material}, ${vendedor}, ${proveedor})`);
-        req.flash('c', 'Mueble anadido correctamente');
-        res.redirect('/links/home');
-    } catch (error) {
-        console.log(error);
-    }
-});
+
 
 router.get('/registrar-prov', async(req, res) => {
     res.render('links/prov');
