@@ -1,9 +1,9 @@
 const express = require('express');
-const { as } = require('pg-promise');
+//const { as } = require('pg-promise');
 const router = express.Router();
 const db = require('../database');
 
-
+/*
 router.get('/comprar/:id', async(req, res) => {
     if (req.user) {
         console.log(req.params.id)
@@ -11,11 +11,14 @@ router.get('/comprar/:id', async(req, res) => {
         res.redirect('/signin');
     }
 });
+*/
+
 
 router.post('/comprar', async(req, res) => {
+    const { valorCompra } = req.body;
+    console.log(valorCompra);
 
-    const { prodId } = req.body;
-    console.log(prodId);
+
 });
 
 
