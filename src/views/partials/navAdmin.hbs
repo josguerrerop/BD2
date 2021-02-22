@@ -12,14 +12,29 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-          Datos del usuario
+        <i class="fas fa-map-marker"></i>&nbsp;  Muebles
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" > Mi id : {{user.id_cliente}}</a>
-              <a class="dropdown-item" > Mi correo : {{user.correo}}</a>
+            <a class="dropdown-item" href="/registromuebles">Registrar muebles</a>
+              <a class="dropdown-item" href="/mueble_admin"> Mis Muebles: {{user.correo}}</a>
             <div class="dropdown-divider"></div>
           </div>
         </li>
+
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-search-dollar"></i>&nbsp;  Proveedores y vendedores
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/registrar-prov">Registrar proveedor</a>
+              <a class="dropdown-item" href="/registrar-vend"> Mis Muebles: {{user.correo}}</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+
+ 
+
         <li class="nav-item">
           <a class="nav-link" href="/logout">Salir</a>
         </li>

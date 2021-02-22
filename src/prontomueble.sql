@@ -111,7 +111,7 @@ create table compra(
 id_mueble int not null,
 id_cliente int not null,
 fecha timestamp not null,
-valor int int not null,
+valor int not null,
 primary key (id_mueble,id_cliente,fecha),
 foreign key (id_mueble) references mueble (id),
 foreign key (id_cliente) references cliente (id)
