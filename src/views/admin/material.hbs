@@ -1,0 +1,36 @@
+{{> navAdmin}}
+<div class="container ">
+    <div class="row pt-2">
+        <div class="col">
+            <span class="float-right"><a href="/registrar-material" class="btn btn-primary float-right">Registrar Material</a></span>
+        </div>
+    </div>
+    <div class="row">
+        {{#each materiales }}
+        <div class="col-md-4">
+            <div class="panel panel-default pt-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center" style="text-transform: capitalize;">{{material}} </h2>
+                    </div>
+                    <div class="card-body justify-content-center">
+                        <div class="panel-heading ">
+
+
+                        </div>
+                        <div class="panel-body">
+                            <h5>Id: {{id}}</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-block" href="/editar-material/{{id}}"><i class="fas fa-edit"></i>&nbsp;
+                            Editar</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {{/each}}
+    </div>
+</div>
