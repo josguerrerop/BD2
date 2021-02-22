@@ -30,7 +30,7 @@ app.set('view engine', '.hbs');
 //midleware
 app.use(session({
     store: new pgs({
-        conString: "postgres://postgres:x@localhost:5432/prontomueble"
+        conString: "postgres://postgres:x@localhost:8080/prontomueble"
     }),
     secret: 'x',
     resave: false,

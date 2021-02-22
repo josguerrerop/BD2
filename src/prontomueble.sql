@@ -32,7 +32,7 @@ foreign key (id_vendedor) references vendedor (id)
 
 
 create table tipo_mueble(
-id int not null,
+id serial not null,
 tipo varchar(20),
 primary key (id)
 );
@@ -44,7 +44,7 @@ primary key (id)
 );
 
 create table color(
-id int not null,
+id serial not null,
 color varchar(20),
 primary key (id)
 );

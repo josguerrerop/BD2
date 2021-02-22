@@ -21,7 +21,7 @@ router.get('/registrar-vend', async(req, res) => {
 router.post('/registrar-vend/add', async(req, res) => {
     try {
         const { nombre } = req.body;
-        const rep = await db.query(`insert into vendedor (nombre, numero_ventas) values ('${nombre}', 0)`);
+        const rep = await db.query(`insert into vendedor (nombre) values ('${nombre}')`);
         req.flash('c', 'Vendedor anadido correctamente');
         req.session.save(function() {
             res.redirect('/registrar-vend');
@@ -156,10 +156,57 @@ router.post('/editar', async(req, res) => {
     const { id, precio, alto, ancho, profundo, instalacion, material, color, tipo, vendedor, proveedor } = req.body;
     try {
         const rep = await db.query(`update mueble set precio=${precio}, precio_instalacion=${instalacion}, dimensiones='${alto},${ancho},${profundo}', id_proveedor=${proveedor}, id_vendedor=${vendedor}, id_color=${color}, id_tipo_mueble=${tipo}, id_material=${material} where id=${id}`)
-        res.redirect('/admin/mueble_Admin')
+        res.redirect('/mueble_Admin')
     } catch (error) {
         console.log(error)
     }
+})
+router.post('/registrar-color/add', async(req, res) => {
+    const { nombre } = req.body;
+    try {
+        const rep = await db.query(`insert into color (color) values ('${nombre}')`);
+        req.flash('c', 'Color anadido correctamente');
+        req.session.save(function() {
+            res.redirect('/registrar-color');
+        });
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.get('/registrar-color', async(req, res) => {
+    res.render('admin/regisColor')
+})
+
+router.post('/registrar-material/add', async(req, res) => {
+    const { nombre } = req.body;
+    try {
+        const rep = await db.query(`insert into material (material) values ('${nombre}')`);
+        req.flash('c', 'Material anadido correctamente');
+        req.session.save(function() {
+            res.redirect('/registrar-material');
+        });
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.get('/registrar-material', async(req, res) => {
+    res.render('admin/regisMaterial')
+})
+
+router.post('/registrar-tipo/add', async(req, res) => {
+    const { nombre } = req.body;
+    try {
+        const rep = await db.query(`insert into tipo_mueble (tipo) values ('${nombre}')`);
+        req.flash('c', 'Tipo anadido correctamente');
+        req.session.save(function() {
+            res.redirect('/registrar-tipo');
+        });
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.get('/registrar-tipo', async(req, res) => {
+    res.render('admin/regisTipo')
 })
 
 

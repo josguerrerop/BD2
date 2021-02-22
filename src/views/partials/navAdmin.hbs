@@ -1,9 +1,9 @@
 <nav class="navbar navbar-light" style="background-color: #1bc7b0;">
   <div class="container">
-    <a class="navbar-brand" href="/links/home">
+    <a class="navbar-brand" href="/mueble_Admin">
       <i class="fas fa-couch"></i>&nbsp; ProntoMuebles S.A</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -12,28 +12,42 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-map-marker"></i>&nbsp;  Muebles
+            <i class="fas fa-map-marker"></i>&nbsp; Muebles
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/registromuebles">Registrar muebles</a>
-              <a class="dropdown-item" href="/mueble_admin"> Mis Muebles: {{user.correo}}</a>
+            <a class="dropdown-item" href="/mueble_Admin">Editar muebles</a>
             <div class="dropdown-divider"></div>
           </div>
         </li>
 
-         <li class="nav-item dropdown">
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-search-dollar"></i>&nbsp;  Proveedores y vendedores
+            <i class="fas fa-search-dollar"></i>&nbsp; Proveedores y Vendedores
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/registrar-prov">Registrar proveedor</a>
-              <a class="dropdown-item" href="/registrar-vend"> Mis Muebles: {{user.correo}}</a>
+            <a class="dropdown-item" href="/registrar-vend">Editar proveedor</a>
+            <a class="dropdown-item" href="/registrar-vend">Registrar vendedor</a>
+            <a class="dropdown-item" href="/registrar-vend">Editar vendedor</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-swatchbook"></i>&nbsp; Otros
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/registrar-color">Registrar color</a>
+            <a class="dropdown-item" href="/registrar-material">Registrar material</a>
+            <a class="dropdown-item" href="/registrar-tipo">Registrar tipo de mueble</a>
             <div class="dropdown-divider"></div>
           </div>
         </li>
 
- 
 
         <li class="nav-item">
           <a class="nav-link" href="/logout">Salir</a>
