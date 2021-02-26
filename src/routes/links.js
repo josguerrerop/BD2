@@ -35,6 +35,12 @@ router.get('/home', async(req, res) => {
     res.render('links/home', { muebles });
 });
 
+router.get('/Mis-Compras', async(req, res) => {
+    id = 3;
+    compras = await db.query(`select * from Compras where id_cliente =${id};`);
+    res.render('links/compras', { compras })
+})
+
 
 
 
