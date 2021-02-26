@@ -197,6 +197,9 @@ router.post("/editar", async(req, res) => {
 });
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+router.get("/registrar-color", async(req, res) => {
+    res.render("admin/regisColor");
+});
 router.post("/registrar-color/add", async(req, res) => {
     const { nombre } = req.body;
     try {
