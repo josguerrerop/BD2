@@ -203,9 +203,7 @@ router.get("/registrar-color", async(req, res) => {
 router.post("/registrar-color/add", async(req, res) => {
     const { nombre } = req.body;
     try {
-        const rep = await db.query(
-            `insert into color (color) values ('${nombre}')`
-        );
+        const rep = await db.query(`insert into color (color) values ('${nombre}')`);
         req.flash("c", "Color anadido correctamente");
         req.session.save(function() {
             res.redirect("/colores");
