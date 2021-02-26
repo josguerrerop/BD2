@@ -164,3 +164,8 @@ TO mueble WHERE NEW.precio<100000
 DO(
 update mueble set precio =200000 WHERE precio<100000;
 );
+
+create or replace  view Compras as
+select material.material, color.color, tipo_mueble.tipo, compra.id_mueble from compra 
+inner join mueble on compra.id_mueble = mueble.id inner join color on color.id=mueble.id_color 
+inner join tipo_mueble on tipo_mueble.id=mueble.id_tipo_mueble inner join material on material.id=mueble.id_material;
