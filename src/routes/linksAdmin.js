@@ -290,6 +290,12 @@ router.post("/registrar-tipo/add", async(req, res) => {
 router.get("/registrar-tipo", async(req, res) => {
     res.render("admin/regisTipo");
 });
+
+
+router.get("/registrar-color", async(req, res) => {
+    res.render("admin/regisColor");
+});
+
 router.get("/editar-tipo/:id", async(req, res) => {
     try {
         const id = req.params.id;
