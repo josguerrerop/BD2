@@ -2,7 +2,7 @@
 
 <div class="container justify-content-center pt-4">
     <div class="row justify-content-center">
-        <div class="card col-md-9" style="background-image: url(https://img.freepik.com/foto-gratis/mezcla-aguamarina-pinturas-sobre-papel_23-2148015683.jpg?size=626&ext=jpg)">
+        <div class="card col-md-9" style="background-image: url(https://img.freepik.com/foto-gratis/mezcla-aguamarina-pinturas-sobre-papel_23-2148015683.jpg?size=626&ext=jpg);opacity: 0.6;">
             <div class="card-header">
                 <div class="row justify-content-center">
                     <h2><i class="fas fa-clipboard-list"></i>&nbsp;Reporte Mensual</h2>
@@ -101,6 +101,35 @@
         </table>
         <br>
     </div>
+   
+     <div class="pt-4" id="tabla-nuevos" style="display: none;">
+        <table class="table table-hover" style="color: white;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id cliente</th>
+                    <th>nombre</th>
+                    <th>direccion</th>
+                    <th>fecha_registro</th>
+                    <th> <span> </span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each repo_nuevos}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{nombre}}</td>
+                    <td>{{direccion}}</td>
+                    <td>{{fecha_registro}}</td>
+                     {{#admin @index}}
+                      <td><i class="fas fa-star"></i></td>
+                    {{/admin}}
+                    <hr>
+                </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+    </div>
 </div>
 
 
@@ -112,16 +141,27 @@
             document.getElementById("tabla-mueble").style.display = "block"
             document.getElementById("tabla-vendedor").style.display = "none"
             document.getElementById("tabla-cliente").style.display = "none"
+            document.getElementById("tabla-nuevos").style.display = "none"
 
         }else if(op == 'cliente'){
             document.getElementById("tabla-mueble").style.display = "none"
             document.getElementById("tabla-vendedor").style.display = "none"
             document.getElementById("tabla-cliente").style.display = "block"
+            document.getElementById("tabla-nuevos").style.display = "none"
         }else if(op == 'vendedor'){
             document.getElementById("tabla-mueble").style.display = "none"
             document.getElementById("tabla-vendedor").style.display = "block"
             document.getElementById("tabla-cliente").style.display = "none"
+            document.getElementById("tabla-nuevos").style.display = "none"
+        }else if(op == 'nuevos'){
+            document.getElementById("tabla-mueble").style.display = "none"
+            document.getElementById("tabla-vendedor").style.display = "none"
+            document.getElementById("tabla-cliente").style.display = "none"
+            document.getElementById("tabla-nuevos").style.display = "none"
+            document.getElementById("tabla-nuevos").style.display = "block"
         }
+
+
     }
 
 

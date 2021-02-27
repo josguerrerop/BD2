@@ -237,6 +237,20 @@ end if;
 END;
 $$ LANGUAGE plpgsql;
 
+
+CREATE OR REPLACE FUNCTION clientes_nuevos() RETURNS setof cliente as $$
+DECLARE dia int;
+DECLARE fech text;
+BEGIN
+select to_char(current_timestamp, 'DD') into dia;
+select to_char(current_timestamp,'YYYY-MM') into fech;
+if(dia >= 27 and dia <=31  ) then
+return query
+select * from cliente where fecha_registro=fech ORDER BY id desc;
+end if;
+END;
+$$ LANGUAGE plpgsql;
+
   
 create view vista_mueble as 
 select mueble.id, id_proveedor, id_vendedor, precio, dimensiones, precio_instalacion, 
@@ -245,6 +259,7 @@ vendedor.nombre as nombre_vend from mueble inner join color on mueble.id_color =
 inner join material on mueble.id_material =material.id inner join 
 tipo_mueble on mueble.id_tipo_mueble = tipo_mueble.id inner join 
 proveedor  on mueble.id_proveedor = proveedor.id inner join vendedor on mueble.id_vendedor = vendedor.id;
+
 
 
 

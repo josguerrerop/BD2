@@ -34,9 +34,13 @@ router.get('/home', async(req, res) => {
 });
 
 router.get('/Mis-Compras', async(req, res) => {
-    id = 3;
-    compras = await db.query(`select * from Compras where id_cliente =${id};`);
-    res.render('links/compras', { compras })
+    if (req.user) {
+        const id = req.user.id_cliente;
+        compras = await db.query(`select * from Compras where id_cliente =${id};`);
+        res.render('links/compras', { compras })
+    } else {
+        res.redirect('links/home')
+    }
 })
 
 

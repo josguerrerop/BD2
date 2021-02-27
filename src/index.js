@@ -38,6 +38,15 @@ hbs.registerHelper('showHr', function(index, options) {
 
 });
 
+hbs.registerHelper('admin', function(index, options) {
+    if (index < 10) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+
+});
+
 
 //midleware
 app.use(session({

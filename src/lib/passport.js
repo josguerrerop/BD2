@@ -19,9 +19,6 @@ passport.use('local.signin', new strategy({
             } else {
                 done(null, false, req.flash('c', 'Incorrect Password'));
             }
-        } else if (rows.length == 0 && (password == 'axxkd343' && username == 'admin@hotmail.com')) {
-            const admin = [username, password];
-            done(null, admin, req.flash('c', 'Welcome admin' + admin[0]));
         } else {
             return done(null, false, req.flash('c', 'The Username does not exists.'));
         }
@@ -39,9 +36,17 @@ passport.use('local.signup', new strategy({
 }, async(req, username, password, done) => {
     const { nombre, direccion, numero_tel } = req.body;
     try {
-        const id = await db.query('insert into cliente  (nombre,direccion) values (${nombre},${direccion}) returning id', { nombre, direccion });
+
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1;
+        var year = dateObj.getUTCFullYear();
+        newdate = year + "-" + "0" + month;
+
+        const id = await db.query('insert into cliente  (nombre,direccion, fecha_registro) values (${nombre},${direccion},${newdate}) returning id', { nombre, direccion, newdate });
         const id_cliente = id[0].id;
-        await db.query('insert into tel_cliente (id_cliente,telefono) values (${id_cliente},${numero_tel})', { id_cliente, numero_tel });
+
+
+        await db.query('insert into tel_cliente (id_cliente,telefono) values (${id_cliente},${numero_tel})', { id_cliente, numero_tel, newdate });
         password = await helpers.encryptPassword(password);
         await db.query('insert into sesion_cliente (id_cliente,correo,clave) values (${id_cliente},${username},${password})', { id_cliente, username, password });
         const correo = username;
