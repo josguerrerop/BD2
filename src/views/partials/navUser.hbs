@@ -17,13 +17,14 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" >  {{user.nombre}}</a>
-              <a class="dropdown-item" > Mi correo : {{user.username}}</a>
+              <a class="dropdown-item" > Mi correo : {{user.correo}}</a>
             <div class="dropdown-divider"></div>
           </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">Salir</a>
         </li>
+    
         {{else}}
         <li class="nav-item">
           <a class="nav-link" href="/signin">SignIn</a>
@@ -31,7 +32,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/signup">SignUp</a>
         </li>
-        {{/if}}
+       {{/if}}
       </ul>
     </div>
   </div>

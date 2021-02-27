@@ -4,8 +4,24 @@ const router = express.Router();
 const db = require("../database");
 const { route } = require("./links");
 
+////// 1
+function evalAdmin(user) {
+    if (user) {
+        if ((user[0] == "admin@hotmail.com" && user[1] == "axxkd343")) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 router.get("/registrar-prov", async(req, res) => {
+    // if (evalAdmin(req.user)) {
+
     res.render("admin/prov");
+    // } else {
+    //res.redirect('/signin');
+    //}
 });
 
 //
@@ -84,27 +100,21 @@ router.get("/reporte", async(req, res) => {
 
 //REGISTRO DE MUEBLES
 router.get("/registromuebles", async(req, res) => {
-    const user = req.user;
-    console.log(user);
-    if (user[0] == "admin@hotmail.com" && user[1] == "axxkd343") {
-        try {
-            var material = await db.query("select * from material;");
-            const color = await db.query("select * from color;");
-            const tipo = await db.query("select * from tipo_mueble;");
-            const vendedor = await db.query("select * from vendedor;");
-            const proveedor = await db.query("select * from proveedor;");
-            res.render("admin/registromuebles", {
-                material,
-                color,
-                tipo,
-                vendedor,
-                proveedor,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    } else {
-        res.redirect("/links/home");
+    try {
+        var material = await db.query("select * from material;");
+        const color = await db.query("select * from color;");
+        const tipo = await db.query("select * from tipo_mueble;");
+        const vendedor = await db.query("select * from vendedor;");
+        const proveedor = await db.query("select * from proveedor;");
+        res.render("admin/registromuebles", {
+            material,
+            color,
+            tipo,
+            vendedor,
+            proveedor,
+        });
+    } catch (error) {
+        console.log(error);
     }
 });
 
@@ -325,5 +335,7 @@ router.get("/tipos", async(req, res) => {
     const tipos = await db.query("select * from tipo_mueble;");
     res.render("admin/tipos", { tipos });
 });
+
+
 
 module.exports = router;

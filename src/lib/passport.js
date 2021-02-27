@@ -1,7 +1,7 @@
 const passport = require('passport');
 const strategy = require('passport-local').Strategy;
 const db = require('../database');
-const helpers = require('../lib/helpers');
+const helpers = require('./helpers');
 
 
 passport.use('local.signin', new strategy({
@@ -11,12 +11,11 @@ passport.use('local.signin', new strategy({
 }, async(req, username, password, done) => {
     try {
         const rows = await db.query('SELECT * FROM sesion_cliente WHERE correo = $1', [username]);
-        console.log(rows);
-
         if (rows.length > 0) {
             const user = rows[0];
-            if (rows[0].clave == password) {
-                done(null, user, req.flash('c', 'Welcome ' + user.username));;
+            const validPassword = await helpers.matchPassword(password, user.clave);
+            if (validPassword) {
+                done(null, user, req.flash('c', 'Welcome ' + user.correo));
             } else {
                 done(null, false, req.flash('c', 'Incorrect Password'));
             }
@@ -39,25 +38,26 @@ passport.use('local.signup', new strategy({
     passReqToCallback: true
 }, async(req, username, password, done) => {
     const { nombre, direccion, numero_tel } = req.body;
-
     try {
-
-        const id_cliente = await db.query('insert into cliente  (nombre,direccion) values (${nombre},${direccion}) returning id', { nombre, direccion });
-
-        const id = id_cliente[0].id;
-        await db.query('insert into sesion_cliente (id_cliente,correo,clave) values (${id},${username},${password})', { id, username, password });
-        await db.query('insert into tel_cliente (id_cliente,telefono) values (${id},${numero_tel})', { id, numero_tel });
-
-        const newClient = { id, username, password, nombre, direccion };
+        const id = await db.query('insert into cliente  (nombre,direccion) values (${nombre},${direccion}) returning id', { nombre, direccion });
+        const id_cliente = id[0].id;
+        await db.query('insert into tel_cliente (id_cliente,telefono) values (${id_cliente},${numero_tel})', { id_cliente, numero_tel });
+        password = await helpers.encryptPassword(password);
+        await db.query('insert into sesion_cliente (id_cliente,correo,clave) values (${id_cliente},${username},${password})', { id_cliente, username, password });
+        const correo = username;
+        const newClient = { id_cliente, correo, password, nombre, direccion };
         return done(null, newClient);
     } catch (error) {
         console.log(error);
     }
 }));
 
-passport.serializeUser((user, done) => {
-    done(null, user);
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id_cliente);
 });
-passport.deserializeUser(function(user, done) {
-    done(null, user);
+
+passport.deserializeUser(async(id_cliente, done) => {
+    const rows = await db.query('SELECT * FROM sesion_cliente WHERE id_cliente = $1', [id_cliente]);
+    done(null, rows[0]);
 });

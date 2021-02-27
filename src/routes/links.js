@@ -5,10 +5,9 @@ const db = require('../database');
 
 
 router.post('/comprar', async(req, res) => {
-    const id = req.user.id;
     if (req.user) {
         const { valorCompra, id_mueble } = req.body;
-        const id = req.user.id;
+        const id = req.user.id_cliente;
         const valor = parseInt(valorCompra);
         const idM = parseInt(id_mueble);
         try {
@@ -25,7 +24,6 @@ router.post('/comprar', async(req, res) => {
     }
 
 });
-
 
 
 
