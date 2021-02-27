@@ -25,7 +25,7 @@ primary key (id)
 create table cant_ventas_vendedor(
 id_vendedor int not null, 
 cant_vendidos int default 0, 
-fecha date,
+fecha varchar(10),
 primary key(id_vendedor,fecha),
 foreign key (id_vendedor) references vendedor (id)
 );
@@ -70,7 +70,7 @@ foreign key (id_material) references material (id)
 create table cant_mueble_vend(
 id_mueble int not null,
 cant_m_ven int default 0,
-fecha date,
+fecha varchar(10),
 primary key (id_mueble,fecha),
 foreign key (id_mueble) references mueble (id)
 );
@@ -95,7 +95,7 @@ foreign key (id_cliente) references cliente (id)
 create table cantm_client_compra(
 id_cliente int not null,
 cant_comprados int default 0,
-fecha date,
+fecha varchar(10),
 primary key (id_cliente,fecha),
 foreign key (id_cliente) references cliente (id)
 );
@@ -132,11 +132,11 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
  create or replace function cliente_compras() returns trigger AS $compras_c$
  declare id_C INT; 
- declare mont date; 
+ declare mont text; 
  declare id_cli INT;
  begin
  id_cli = new.id_cliente;
- SELECT DATE(new.fecha) INTO mont;
+ SELECT to_char(new.fecha, 'YYYY-MM') INTO mont;
  SELECT id_cliente FROM cantm_client_compra WHERE fecha=mont and id_cliente=id_cli into id_C;
  IF (id_C IS NULL) then
  insert into cantm_client_compra (id_cliente,cant_comprados,fecha) values (new.id_cliente,1,mont);
@@ -149,6 +149,51 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
  
   create trigger compras_c after insert on compra
   for each row execute procedure cliente_compras();
+
+
+
+ create or replace function mueble_compras() returns trigger AS $compras_M$
+ declare id_M INT; 
+ declare fech text; 
+ declare id_mue INT;
+ begin
+ id_mue = new.id_mueble;
+ SELECT to_char(new.fecha, 'YYYY-MM') INTO fech;
+ SELECT id_mueble FROM cant_mueble_vend WHERE fecha=fech and id_mueble=id_mue into id_M;
+ IF (id_M IS NULL) then
+ insert into cant_mueble_vend (id_mueble,cant_m_ven,fecha) values (new.id_mueble,1,fech);
+ else 
+ update cant_mueble_vend set cant_m_ven=cant_m_ven+1 WHERE fecha=fech and id_mueble=id_mue;
+ end if;
+ return new;
+ end;
+ $compras_M$ LANGUAGE plpgsql;
+ 
+  create trigger compras_M after insert on compra
+  for each row execute procedure mueble_compras();
+
+
+   create or replace function vendedor_ventas() returns trigger AS $cantidad_vend$
+ declare id_V INT; 
+ declare fech text; 
+ declare id_vend INT;
+ begin
+ SELECT id_vendedor FROM mueble where id=new.id_mueble into id_vend;
+ SELECT to_char(new.fecha, 'YYYY-MM') INTO fech;
+ SELECT id_vendedor FROM cant_ventas_vendedor WHERE fecha=fech and id_vendedor=id_vend into id_V;
+ IF (id_V IS NULL) then
+ insert into cant_ventas_vendedor (id_vendedor,cant_vendidos,fecha) values (id_vend,1,fech);
+ else 
+ update cant_ventas_vendedor set cant_vendidos=cant_vendidos+1 WHERE fecha=fech and id_vendedor=id_vend;
+ end if;
+ return new;
+ end;
+ $cantidad_vend$ LANGUAGE plpgsql;
+ 
+  create trigger cantidad_vend after insert on compra
+  for each row execute procedure vendedor_ventas();
+
+
   
 create view vista_mueble as 
 select mueble.id, id_proveedor, id_vendedor, precio, dimensiones, precio_instalacion, 
@@ -157,6 +202,8 @@ vendedor.nombre as nombre_vend from mueble inner join color on mueble.id_color =
 inner join material on mueble.id_material =material.id inner join 
 tipo_mueble on mueble.id_tipo_mueble = tipo_mueble.id inner join 
 proveedor  on mueble.id_proveedor = proveedor.id inner join vendedor on mueble.id_vendedor = vendedor.id;
+
+
 
 CREATE OR REPLACE RULE limit_precio
 AS ON insert 

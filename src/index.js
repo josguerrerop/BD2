@@ -8,6 +8,7 @@ const pgs = require('connect-pg-simple')(session);
 const passport = require('passport');
 
 
+
 //inicio
 const app = express();
 require('./lib/passport');
@@ -25,6 +26,17 @@ app.engine('.hbs', exphbs({
     helpers: require('./lib/handlebars')
 }));
 app.set('view engine', '.hbs');
+
+var hbs = require('handlebars');
+
+hbs.registerHelper('showHr', function(index, options) {
+    if (index < 3) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+
+});
 
 
 //midleware

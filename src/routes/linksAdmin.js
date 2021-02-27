@@ -93,7 +93,7 @@ router.post("/add", async(req, res) => {
 router.get("/reporte", async(req, res) => {
     const repo_mueble = await db.query("select * from cant_mueble_vend;");
     const repo_vendedor = await db.query("select * from cant_ventas_vendedor;");
-    const repo_cliente = await db.query("select * from cantm_client_compra;");
+    const repo_cliente = await db.query("select * from cantm_client_compra ORDER BY cant_comprados desc;");
     res.render("admin/reporte", { repo_mueble, repo_vendedor, repo_cliente });
 });
 //
