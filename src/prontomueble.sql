@@ -80,12 +80,13 @@ create table cliente(
 id serial not null,
 nombre varchar(20),
 direccion varchar(20),
+fecha_registro varchar(10),
 primary key (id)
 );
 
 create table sesion_cliente (
 id_cliente INT not null,
-correo varchar(30),
+correo varchar(30) UNIQUE,
 clave varchar(200),
 primary key (id_cliente),
 foreign key (id_cliente) references cliente (id)
@@ -193,6 +194,48 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
   create trigger cantidad_vend after insert on compra
   for each row execute procedure vendedor_ventas();
 
+
+
+  CREATE OR REPLACE FUNCTION reporte_cliente() RETURNS setof cantm_client_compra as $$
+DECLARE dia int;
+DECLARE fech text;
+BEGIN
+select to_char(current_timestamp, 'DD') into dia;
+select to_char(current_timestamp,'YYYY-MM') into fech;
+if(dia >= 27 and dia <=31  ) then
+return query
+select * from cantm_client_compra where fecha=fech ORDER BY cant_comprados desc;
+end if;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION reporte_vendedor() RETURNS setof cant_ventas_vendedor as $$
+DECLARE dia int;
+DECLARE fech text;
+BEGIN
+select to_char(current_timestamp, 'DD') into dia;
+select to_char(current_timestamp,'YYYY-MM') into fech;
+if(dia >= 27 and dia <=31  ) then
+return query
+select * from cant_ventas_vendedor where fecha=fech ORDER BY cant_vendidos desc FETCH FIRST ROW ONLY;
+end if;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION reporte_mueble() RETURNS setof cant_mueble_vend as $$
+DECLARE dia int;
+DECLARE fech text;
+BEGIN
+select to_char(current_timestamp, 'DD') into dia;
+select to_char(current_timestamp,'YYYY-MM') into fech;
+if(dia >= 27 and dia <=31  ) then
+return query
+select * from cant_mueble_vend where fecha=fech ORDER BY cant_m_ven desc;
+end if;
+END;
+$$ LANGUAGE plpgsql;
 
   
 create view vista_mueble as 
