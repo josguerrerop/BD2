@@ -336,6 +336,13 @@ router.get("/tipos", async(req, res) => {
     res.render("admin/tipos", { tipos });
 });
 
+<<<<<<< HEAD
 
+=======
+router.get("/Compras", async(req, res) => {
+    compras = await db.query(`select * from Compras;`);
+    res.render('admin/compras', { compras })
+})
+>>>>>>> a77ba73c292e1d21409f0968bdffbbf92e3742a8
 
 module.exports = router;

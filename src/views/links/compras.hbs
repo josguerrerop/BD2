@@ -1,0 +1,40 @@
+{{> navUser}}
+<div class="container content-justify-center">
+    <div class="row content-justify-center">
+        {{#if compras}}
+        {{#each compras }}
+        <div class="col-md-4">
+            <div class="panel panel-default pt-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h6><i class="fas fa-map-marker"></i></h6>
+                        <h2 class="text-center" style="text-transform: capitalize;">{{tipo}} de {{material}}, {{color}}
+                        </h2>
+                    </div>
+                    <div class="card-body justify-content-center">
+                        <div class="panel-heading ">
+                        </div>
+                        <div class="panel-body">
+                            <h5>Fecha: {{fecha}}</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-danger btn-block" href="/editar-color/{{id_}}"><i
+                                class="fas fa-trash-alt"></i>&nbsp;
+                            Cancelar</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <div class="row justify-content-center pt-4">
+        <div class="card">
+            <h1> No tienes ninguna compra :( </h1>
+        </div>
+    </div>
+    {{/if}}
+
+</div>
