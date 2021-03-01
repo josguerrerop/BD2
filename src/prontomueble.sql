@@ -202,7 +202,7 @@ DECLARE fech text;
 BEGIN
 select to_char(current_timestamp, 'DD') into dia;
 select to_char(current_timestamp,'YYYY-MM') into fech;
-if(dia >= 27 and dia <=31  ) then
+if(dia >= 1 and dia <=31  ) then
 return query
 select * from cantm_client_compra where fecha=fech ORDER BY cant_comprados desc;
 end if;
@@ -216,7 +216,7 @@ DECLARE fech text;
 BEGIN
 select to_char(current_timestamp, 'DD') into dia;
 select to_char(current_timestamp,'YYYY-MM') into fech;
-if(dia >= 27 and dia <=31  ) then
+if(dia >= 1 and dia <=31  ) then
 return query
 select * from cant_ventas_vendedor where fecha=fech ORDER BY cant_vendidos desc FETCH FIRST ROW ONLY;
 end if;
@@ -230,7 +230,7 @@ DECLARE fech text;
 BEGIN
 select to_char(current_timestamp, 'DD') into dia;
 select to_char(current_timestamp,'YYYY-MM') into fech;
-if(dia >= 27 and dia <=31  ) then
+if(dia >= 1 and dia <=31  ) then
 return query
 select * from cant_mueble_vend where fecha=fech ORDER BY cant_m_ven desc;
 end if;
@@ -244,7 +244,7 @@ DECLARE fech text;
 BEGIN
 select to_char(current_timestamp, 'DD') into dia;
 select to_char(current_timestamp,'YYYY-MM') into fech;
-if(dia >= 27 and dia <=31  ) then
+if(dia >= 1 and dia <=31  ) then
 return query
 select * from cliente where fecha_registro=fech ORDER BY id desc;
 end if;
