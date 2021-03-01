@@ -54,7 +54,7 @@ router.post("/registrar-vend/add", async(req, res) => {
             );
             req.flash("c", "Vendedor anadido correctamente");
             req.session.save(function() {
-                res.redirect("/registrar-vend");
+                res.redirect("/vendedores");
             });
         } catch (error) {
             console.log(error);
@@ -79,7 +79,7 @@ router.post("/registrar-prov/add", async(req, res) => {
                 `insert into tel_proveedor (id_proveedor,telefono) values ('${idp}','${contacto}')`
             );
             req.flash("c", "Proveedor añadido correctamente");
-            res.redirect("/registrar-prov");
+            res.redirect("/proveedores");
         } catch (error) {
             console.log(error);
         }
@@ -458,6 +458,92 @@ router.get("/tipos", async(req, res) => {
         res.redirect('/links/home');
     }
 });
+router.get("/Compras", async(req, res) => {
+    if (evalAdmin(req.user)) {
+        const compras = await db.query("select * from Compras;");
+        res.render("admin/compras", { compras });
+    } else {
+        res.redirect('/links/home');
+    }
+});
+
+router.get("/editar-proveedor/:id", async(req, res) => {
+    const id = req.params.id;
+    if (evalAdmin(req.user)) {
+        const proveedor = await db.query(`select * from proveedor inner join tel_proveedor on proveedor.id = tel_proveedor.id_proveedor where proveedor.id =${id} ;`);
+        res.render("admin/editProv", { proveedor });
+
+    } else {
+        res.redirect('/links/home');
+    }
+});
+router.post("/editar-prov/add", async(req, res) => {
+    if (evalAdmin(req.user)) {
+        try {
+            const { id, direccion, nombre, representante, contacto } = req.body;
+            const id_p = await db.query(
+                `update proveedor set direccion = '${direccion}', nombre = '${nombre}', persona_contacto= '${representante}' where id=${id}`
+            );
+
+            const resp1 = await db.query(
+                `update tel_proveedor set  telefono= '${contacto}' where id_proveedor = ${id};`
+            );
+            req.flash("c", "Proveedor editado correctamente");
+            res.redirect("/proveedores");
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        res.redirect('/links/home');
+    }
+})
 
 
+router.get("/proveedores", async(req, res) => {
+    const id = req.params.id;
+    if (evalAdmin(req.user)) {
+        const proveedores = await db.query(`select * from proveedor ;`);
+        res.render("admin/proveedores", { proveedores });
+
+    } else {
+        res.redirect('/links/home');
+    }
+});
+router.get("/vendedores", async(req, res) => {
+    const id = req.params.id;
+    if (evalAdmin(req.user)) {
+        const vendedores = await db.query(`select * from vendedor ;`);
+        res.render("admin/vendedores", { vendedores });
+
+    } else {
+        res.redirect('/links/home');
+    }
+});
+
+router.get("/editar-vendedor/:id", async(req, res) => {
+    const id = req.params.id;
+    if (evalAdmin(req.user)) {
+        const vendedor = await db.query(`select * from vendedor where id =${id} ;`);
+        res.render("admin/editVend", { vendedor });
+
+    } else {
+        res.redirect('/links/home');
+    }
+});
+router.post("/editar-vend/add", async(req, res) => {
+    if (evalAdmin(req.user)) {
+        try {
+            const { id, nombre } = req.body;
+            const id_p = await db.query(
+                `update vendedor set  nombre = '${nombre}' where id=${id}`
+            );
+            req.flash("c", "Vendedor editado correctamente");
+            res.redirect("/vendedores");
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        res.redirect('/links/home');
+    }
+})
 module.exports = router;
