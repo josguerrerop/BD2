@@ -1,0 +1,37 @@
+{{> navAdmin}}
+<div class="container ">
+    <div class="row pt-2">
+        <div class="col">
+            <span class="float-right"><a href="/registrar-prov" class="btn btn-primary float-right">Registrar
+                    Proveedor</a></span>
+        </div>
+    </div>
+    <div class="row">
+        {{#each proveedores }}
+        <div class="col-md-4">
+            <div class="panel panel-default pt-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center" style="text-transform: capitalize;">{{nombre}} </h2>
+                    </div>
+                    <div class="card-body justify-content-center">
+
+                        <div class="panel-body">
+                            <h5>Id: {{id}}</h5>
+                        </div>
+                        <div class="panel-body">
+                            <h5>Direccion: {{direccion}}</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-block" href="/editar-proveedor/{{id}}"><i class="fas fa-edit"></i>&nbsp;
+                            Editar</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {{/each}}
+    </div>
+</div>

@@ -3,7 +3,7 @@ create database prontomueble;
 
 create table proveedor(
 id serial not null,
-direccion varchar(20),
+direccion varchar(50),
 nombre varchar(20),
 persona_contacto varchar(20),
 primary key (id)
@@ -79,7 +79,7 @@ foreign key (id_mueble) references mueble (id)
 create table cliente(
 id serial not null,
 nombre varchar(20),
-direccion varchar(20),
+direccion varchar(50),
 fecha_registro varchar(10),
 primary key (id)
 );
@@ -202,7 +202,7 @@ DECLARE fech text;
 BEGIN
 select to_char(current_timestamp, 'DD') into dia;
 select to_char(current_timestamp,'YYYY-MM') into fech;
-if(dia >= 27 and dia <=31  ) then
+if(dia >= 1 and dia <=31  ) then
 return query
 select * from cantm_client_compra where fecha=fech ORDER BY cant_comprados desc;
 end if;
@@ -216,7 +216,7 @@ DECLARE fech text;
 BEGIN
 select to_char(current_timestamp, 'DD') into dia;
 select to_char(current_timestamp,'YYYY-MM') into fech;
-if(dia >= 27 and dia <=31  ) then
+if(dia >= 1 and dia <=31  ) then
 return query
 select * from cant_ventas_vendedor where fecha=fech ORDER BY cant_vendidos desc FETCH FIRST ROW ONLY;
 end if;
@@ -230,7 +230,7 @@ DECLARE fech text;
 BEGIN
 select to_char(current_timestamp, 'DD') into dia;
 select to_char(current_timestamp,'YYYY-MM') into fech;
-if(dia >= 27 and dia <=31  ) then
+if(dia >= 1 and dia <=31  ) then
 return query
 select * from cant_mueble_vend where fecha=fech ORDER BY cant_m_ven desc;
 end if;
@@ -244,7 +244,7 @@ DECLARE fech text;
 BEGIN
 select to_char(current_timestamp, 'DD') into dia;
 select to_char(current_timestamp,'YYYY-MM') into fech;
-if(dia >= 27 and dia <=31  ) then
+if(dia >= 1 and dia <=31  ) then
 return query
 select * from cliente where fecha_registro=fech ORDER BY id desc;
 end if;
@@ -271,7 +271,7 @@ update mueble set precio =200000 WHERE precio<100000;
 );
 
 create or replace  view Compras as
-select material.material, color.color, tipo_mueble.tipo, compra.id_mueble from compra 
+select material.material, color.color, tipo_mueble.tipo, compra.id_mueble, compra.id_cliente, compra.fecha from compra 
 inner join mueble on compra.id_mueble = mueble.id inner join color on color.id=mueble.id_color 
 inner join tipo_mueble on tipo_mueble.id=mueble.id_tipo_mueble
  inner join material on material.id=mueble.id_material;
